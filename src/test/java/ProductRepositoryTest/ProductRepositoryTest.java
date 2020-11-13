@@ -1,3 +1,6 @@
+package ProductRepositoryTest;
+
+import config.TestConfig;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,7 +14,6 @@ import ru.education.entity.Product;
 import ru.education.jpa.ProductRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

@@ -11,10 +11,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "product")
-@NoArgsConstructor
+//@NoArgsConstructor
 @Setter
 @Getter
 public class Product {
+
+    public static String TYPE_NAME = "Продукт";
 
     @Id
     @Column(name = "id", nullable = false)
@@ -25,6 +27,24 @@ public class Product {
 
     public Product(Integer id, String name) {
         this.id = id;
+        this.name = name;
+    }
+
+    public Product() {}
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 }

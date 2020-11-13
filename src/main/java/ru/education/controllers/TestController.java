@@ -3,7 +3,7 @@ package ru.education.controllers;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import ru.education.entity.SalesPeriodJdbcDemo;
-import ru.education.entity.SalesPeriodJpaDemo;
+import ru.education.entity.SalesPeriod;
 import ru.education.jdbc.SalesPeriodJdbcRepository;
 import ru.education.entity.Product;
 import ru.education.jpa.ProductRepository;
@@ -67,13 +67,13 @@ public class TestController {
     }
 
     @GetMapping("/sales/jpa")
-    public List<SalesPeriodJpaDemo> getSalesPeriodJpa() {
+    public List<SalesPeriod> getSalesPeriodJpa() {
         return salesPeriodJpaRepository.findAll();
     }
 
     @PostMapping("/sales/jpa")
-    public SalesPeriodJpaDemo addSalesPeriodJpa (@RequestBody SalesPeriodJpaDemo salesPeriodJpaDemo) {
-        return salesPeriodJpaRepository.save(salesPeriodJpaDemo);
+    public SalesPeriod addSalesPeriodJpa (@RequestBody SalesPeriod salesPeriod) {
+        return salesPeriodJpaRepository.save(salesPeriod);
     }
 
     @GetMapping("/sales/jpa/max/price")
@@ -87,12 +87,12 @@ public class TestController {
     }
 
     @GetMapping("/sales/jpa/active")
-    public List<SalesPeriodJpaDemo> findByDateToNull() {
+    public List<SalesPeriod> findByDateToNull() {
         return salesPeriodJpaRepository.findByDateToIsNull();
     }
 
     @GetMapping("/sales/jpa/byproductname")
-    public List<SalesPeriodJpaDemo> findByProductName() {
+    public List<SalesPeriod> findByProductName() {
         return salesPeriodJpaRepository.findByProductName("bike");
     }
 
