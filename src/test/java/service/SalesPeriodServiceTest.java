@@ -14,7 +14,7 @@ import ru.education.exceptions.EntityAlreadyExistsException;
 import ru.education.exceptions.EntityConflictException;
 import ru.education.exceptions.EntityIllegalArgumentException;
 import ru.education.exceptions.EntityNotFoundException;
-import ru.education.service.ProductService;
+import ru.education.service.impl.DefaultProductService;
 import ru.education.service.SalesPeriodService;
 import java.util.Date;
 
@@ -29,7 +29,7 @@ public class SalesPeriodServiceTest {
     private SalesPeriodService salesPeriodService;
 
     @Autowired
-    private ProductService productService;
+    private DefaultProductService defaultProductService;
 
     @Test
     public void findAllTest() {
@@ -59,7 +59,7 @@ public class SalesPeriodServiceTest {
 
     @Test(expected = EntityIllegalArgumentException.class)
     public void createSalesPeriodIdNullTest() {
-        Product product = productService.findById(1);
+        Product product = defaultProductService.findById(1);
         Date date = new Date();
         Date date1 = new Date();
         SalesPeriod salesPeriod = new SalesPeriod(null, 100L,  date, date1, product);
@@ -94,7 +94,7 @@ public class SalesPeriodServiceTest {
 
     @Test(expected = EntityIllegalArgumentException.class)
     public void createSalesPeriodDateFromNullTest() {
-        Product product = productService.findById(1);
+        Product product = defaultProductService.findById(1);
         Date date1 = new Date();
         SalesPeriod salesPeriod = new SalesPeriod(10, 100L, null, date1, product);
         salesPeriodService.create(salesPeriod);
@@ -102,7 +102,7 @@ public class SalesPeriodServiceTest {
 
     @Test(expected = EntityAlreadyExistsException.class)
     public void createSalesPeriodAlreadyExistsTest() {
-        Product product = productService.findById(1);
+        Product product = defaultProductService.findById(1);
         Date date = new Date();
         Date date1 = new Date();
         SalesPeriod salesPeriod = new SalesPeriod(1, 100L, date, date1, product);
@@ -111,7 +111,7 @@ public class SalesPeriodServiceTest {
 
     @Test(expected = EntityConflictException.class)
     public void createSalesPeriodAlreadyOpenPeriodTest() {
-        Product product = productService.findById(2);
+        Product product = defaultProductService.findById(2);
         Date date = new Date();
         Date date1 = new Date();
         SalesPeriod salesPeriod = new SalesPeriod(8, 100L, date, date1, product);
@@ -120,7 +120,7 @@ public class SalesPeriodServiceTest {
 
     @Test
     public void CreateSalesPeriodTest() {
-        Product product = productService.findById(1);
+        Product product = defaultProductService.findById(1);
         Date date = new Date();
         Date date1 = new Date();
         SalesPeriod salesPeriod = new SalesPeriod(8, 100L, date, date1, product);
@@ -141,7 +141,7 @@ public class SalesPeriodServiceTest {
 
     @Test
     public void deleteByIdTest() {
-        Product product = productService.findById(1);
+        Product product = defaultProductService.findById(1);
         Date date = new Date();
         Date date1 = new Date();
         SalesPeriod salesPeriod = new SalesPeriod(8, 100L, date, date1, product);

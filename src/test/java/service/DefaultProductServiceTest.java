@@ -13,83 +13,83 @@ import ru.education.exceptions.EntityAlreadyExistsException;
 import ru.education.exceptions.EntityHasDetailsException;
 import ru.education.exceptions.EntityIllegalArgumentException;
 import ru.education.exceptions.EntityNotFoundException;
-import ru.education.service.ProductService;
+import ru.education.service.impl.DefaultProductService;
 
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes = {TestConfig.class})
-public class ProductServiceTest {
+public class DefaultProductServiceTest {
 
     @Autowired
-    private ProductService productService;
+    private DefaultProductService defaultProductService;
 
     @Test
     public void findAllTest() {
-        List<Product> products = productService.findAll();
+        List<Product> products = defaultProductService.findAll();
         Assert.assertEquals(products.size(), 2);
     }
 
     @Test(expected = EntityIllegalArgumentException.class)
-    public void findByIdNullTest() { productService.findById(null); }
+    public void findByIdNullTest() { defaultProductService.findById(null); }
 
     @Test(expected = EntityIllegalArgumentException.class)
-    public void findByIdIllegalIdTest() { productService.findById("test"); }
+    public void findByIdIllegalIdTest() { defaultProductService.findById("test"); }
 
     @Test(expected = EntityNotFoundException.class)
-    public void findByIdNotFoundProductTest() { productService.findById(0); }
+    public void findByIdNotFoundProductTest() { defaultProductService.findById(0); }
 
     @Test
     public void findByIdTest() {
-        Product product = productService.findById(2);
+        Product product = defaultProductService.findById(2);
         Assert.assertEquals(product.getName(),"bike_test");
     }
 
     @Test(expected = EntityIllegalArgumentException.class)
     public void createNullProductException() {
-        productService.create(null);
+        defaultProductService.create(null);
     }
 
     @Test(expected = EntityIllegalArgumentException.class)
     public void createProductIdNullTest() {
         Product product = new Product(null,"test");
-        productService.create(product);
+        defaultProductService.create(product);
     }
 
     @Test(expected = EntityAlreadyExistsException.class)
     public void createProductAlreadyExistsTest() {
         Product product = new Product(1,"test");
-        productService.create(product);
+        defaultProductService.create(product);
     }
 
     @Test
     public void createProductTest() {
         Product product = new Product(3,"test");
-        productService.create(product);
-        List<Product> products = productService.findAll();
+        defaultProductService.create(product);
+        List<Product> products = defaultProductService.findAll();
         Assert.assertEquals(products.size(), 3);
-        productService.delete(3);
+        defaultProductService.delete(3);
     }
 
     @Test(expected = EntityIllegalArgumentException.class)
-    public void deleteIdNullTest() { productService.delete(null); }
+    public void deleteIdNullTest() { defaultProductService.delete(null); }
 
     @Test(expected = EntityIllegalArgumentException.class)
-    public void deleteIdIllegalIdTest() { productService.delete("test"); }
+    public void deleteIdIllegalIdTest() { defaultProductService.delete("test"); }
 
     @Test(expected = EntityNotFoundException.class)
-    public void deleteIdNotFoundTest() { productService.delete(0); }
+    public void deleteIdNotFoundTest() { defaultProductService.delete(0); }
 
     @Test(expected = EntityHasDetailsException.class)
-    public void deleteIdHasDetailsTest() { productService.delete(2); }
+    public void deleteIdHasDetailsTest() { defaultProductService.delete(2); }
 
     @Test
     public void deleteTest() {
         Product product = new Product(3,"test");
-        productService.create(product);
-        productService.delete(3);
-        List<Product> products = productService.findAll();
+        defaultProductService.create(product);
+        defaultProductService.delete(3);
+        List<Product> products = defaultProductService.findAll();
         Assert.assertEquals(products.size(), 2);
     }
 }
