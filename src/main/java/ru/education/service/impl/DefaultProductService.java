@@ -3,6 +3,7 @@ package ru.education.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.education.annotation.Loggable;
 import ru.education.entity.Product;
 import ru.education.entity.SalesPeriod;
 import ru.education.exceptions.EntityAlreadyExistsException;
@@ -32,6 +33,7 @@ public class DefaultProductService implements ProductService {
         return productRepository.findAll();
     }
 
+    @Loggable
     public Product findById(Object id) {
         Product product;
         if (id == null) {
